@@ -1,0 +1,18 @@
+qchaos
+
+Created by binomaiheu@gmail.com (c) 2008
+
+
+This program is based on Qt and Qwt, the project file contains
+what is necessary 
+
+do
+
+bash$ qmake -makefile 
+
+in the main dir & then issue a make.
+
+
+The models are coded as subclasses of QChaosModel in models/
+
+have fun :).
