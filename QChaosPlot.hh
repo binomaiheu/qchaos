@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <qwt-qt4/qwt_plot.h>
+#include <qwt_plot.h>
 
 #define  MIN(a,b) ( a < b ? a : b )
 

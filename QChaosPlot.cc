@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include <qwt-qt4/qwt_plot.h>
-#include <qwt-qt4/qwt_picker.h>
-#include <qwt-qt4/qwt_plot_curve.h>
-#include <qwt-qt4/qwt_plot_grid.h>
-#include <qwt-qt4/qwt_plot_marker.h>
-#include <qwt-qt4/qwt_plot_grid.h>
-#include <qwt-qt4/qwt_plot_canvas.h>
-#include <qwt-qt4/qwt_plot_layout.h>
-#include <qwt-qt4/qwt_plot_zoomer.h>
-#include <qwt-qt4/qwt_plot_panner.h>
-#include <qwt-qt4/qwt_plot_picker.h>
+#include <qwt_plot.h>
+#include <qwt_picker.h>
+#include <qwt_plot_curve.h>
+#include <qwt_plot_grid.h>
+#include <qwt_plot_marker.h>
+#include <qwt_plot_grid.h>
+#include <qwt_plot_canvas.h>
+#include <qwt_plot_layout.h>
+#include <qwt_plot_zoomer.h>
+#include <qwt_plot_panner.h>
+#include <qwt_plot_picker.h>
 
 #include "QChaosPlot.hh"
 #include "QChaosModel.hh"
@@ -29,8 +29,7 @@ class Zoomer: public QwtPlotZoomer
 public:
   Zoomer(int xAxis, int yAxis, QwtPlotCanvas *canvas):
     QwtPlotZoomer(xAxis, yAxis, canvas)
-    {
-      setSelectionFlags(QwtPicker::DragSelection | QwtPicker::CornerToCorner);
+    {      
       setTrackerMode(QwtPicker::AlwaysOff);
       setRubberBand(QwtPicker::NoRubberBand);
       
@@ -52,7 +51,11 @@ QChaosPlot::QChaosPlot( QWidget *parent ) :
   
   _nIter = NDEF_ITERATIONS;
   
-// set plot width/heigth in pixels
+  QwtPlotCanvas *canvas = new QwtPlotCanvas();
+
+  setCanvas( canvas );
+
+  // set plot width/heigth in pixels
   setMinimumSize( 300, 300 );
   
   setAutoReplot( false );
@@ -64,8 +67,8 @@ QChaosPlot::QChaosPlot( QWidget *parent ) :
   QwtPlotGrid *grid = new QwtPlotGrid;
   grid->enableXMin(true);
   grid->enableYMin(true);
-  grid->setMajPen(QPen(Qt::black, 0, Qt::DotLine));
-  grid->setMinPen(QPen(Qt::gray, 0 , Qt::DotLine));
+  //grid->setMajPen(QPen(Qt::black, 0, Qt::DotLine));
+  //grid->setMinPen(QPen(Qt::gray, 0 , Qt::DotLine));
   grid->attach(this);
   
   
@@ -83,7 +86,7 @@ QChaosPlot::QChaosPlot( QWidget *parent ) :
   addModel( QChaosPlot::Lorentz, new QChaosLorentz() );
   
 // enable zooming
-  _zoomer = new Zoomer( QwtPlot::xBottom, QwtPlot::yLeft, canvas() );
+  _zoomer = new Zoomer( QwtPlot::xBottom, QwtPlot::yLeft, canvas );
   _zoomer->setRubberBand(QwtPicker::RectRubberBand);
   _zoomer->setRubberBandPen(QPen(Qt::red, 1, Qt::DotLine));
   _zoomer->setTrackerMode(QwtPicker::ActiveOnly);
@@ -117,8 +120,8 @@ void QChaosPlot::drawModel( ) {
     i++;
   }
   
-  _curve->setData( _x, _y, i );
-  
+  _curve->setRawSamples( _x, _y, i );
+    
 // make sure the axes update automatically, looks like the zoomer may
 // screw this up...
   setAxisAutoScale( QwtPlot::xBottom );

@@ -1,11 +1,20 @@
 #include <QtGui>
 
-#include <qwt-qt4/qwt_plot.h>
+#include <qwt_plot.h>
 
 #include "QChaosWindow.hh"
 #include "QChaosPlot.hh"
 #include "QChaosModel.hh"
 #include "QParBoxArray.hh"
+
+#include <QPushButton>
+#include <QComboBox>
+#include <QLabel>
+#include <QSpinBox>
+#include <QGridLayout>
+#include <QTextEdit>
+#include <QFileDialog>
+#include <QtPrintSupport/QPrinter>
 
 
 QChaosWindow::QChaosWindow( QWidget *parent ) :
@@ -16,11 +25,13 @@ QChaosWindow::QChaosWindow( QWidget *parent ) :
 // The plot
   plot = new QChaosPlot( this );
   
+  /*
 // the Export button
   QPushButton *expButton = new QPushButton( "&Save pdf" );
   expButton->resize( 75, 30 );
   QObject::connect(expButton, SIGNAL(clicked()), this, SLOT(exportPDF()));
-  
+  */
+
 // the Draw button
   drawButton = new QPushButton( "&Draw" );
   drawButton->resize( 75, 30 );
@@ -109,7 +120,7 @@ QChaosWindow::QChaosWindow( QWidget *parent ) :
   butLayout->addWidget( modelBox, 0, 0, 1, 3 );
   butLayout->addWidget( parCtrl, 1, 0, 1, 3 );
   butLayout->addWidget( infoText, 2, 0, 1, 3 );
-  butLayout->addWidget( expButton, 4, 1, 1, 1 );
+  //butLayout->addWidget( expButton, 4, 1, 1, 1 );
   butLayout->addWidget( quitButton, 4, 2, 1, 1 );
   
   
@@ -133,6 +144,7 @@ QChaosWindow::QChaosWindow( QWidget *parent ) :
 // export the graphic as a pdf...
 void QChaosWindow::exportPDF() {
   
+    /*
   const QString fileName = QFileDialog::getSaveFileName(
     this, "Export File Name", QString(),
     "PDF Documents (*.pdf)");
@@ -144,6 +156,8 @@ void QChaosWindow::exportPDF() {
     printer.setOutputFileName(fileName);
     plot->print(printer);
   }
+  */
+
   
   return;
 }
