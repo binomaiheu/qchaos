@@ -1,0 +1,4 @@
+0.2	updated using Qt5 and qwt 6.2.1
+	export functionality to pdf is broken, still need to restore
+	
+0.1	initial version, used to work with old versions of qwt and Qt4
